@@ -1,0 +1,27 @@
+<?php
+
+use Exporter\Handler;
+use Exporter\Source\ArraySourceIterator;
+use Exporter\Writer\CsvWriter;
+use Exporter\Writer\JsonWriter;
+use Exporter\Writer\XlsWriter;
+
+function hunter_data_export($data, $type, $file) {
+  $stm = json_decode(json_encode($data),true);
+  $source = new ArraySourceIterator($stm);
+
+  switch ($type)
+  {
+  case 'csv':
+    $writer = new CsvWriter($file);
+    break;
+  case 'json':
+    $writer = new JsonWriter($file, ',', '');
+    break;
+  default:
+    $writer = new XlsWriter($file);
+  }
+
+  // Export the data
+  Handler::create($source, $writer)->export();
+}

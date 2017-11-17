@@ -1,0 +1,5 @@
+name: Exporter
+type: module
+description: Data Exporter for HunterPHP.
+core: 1.x
+package: Hunter
